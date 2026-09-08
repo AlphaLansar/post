@@ -44,7 +44,7 @@ const INTENTS: Intent[] = [
     test: /(performance|situation|résultat).*(glob|mois|glbal|général|glo)|comment (va|se porte)|vue d.ensemble/i,
     build: () => ({
       content:
-        `Sur les 30 derniers jours, l'activité de La Poste du Mali est **globalement bien orientée**. ` +
+        `Sur les 30 derniers jours, l'activité de La Poste du Mali est globalement bien orientée. ` +
         `Le chiffre d'affaires consolidé atteint ${fcfa(NATIONAL_KPIS.revenue)} (${pct(NATIONAL_KPIS.revenueDelta)}), ` +
         `porté par les colis (${pct(NATIONAL_KPIS.parcelsDelta)}) et les transactions (${pct(NATIONAL_KPIS.transactionsDelta)}). ` +
         `Le segment courrier reste en repli (${pct(NATIONAL_KPIS.mailDelta)}). La marge opérationnelle est estimée à ${NATIONAL_KPIS.margin} %.`,
@@ -71,12 +71,12 @@ const INTENTS: Intent[] = [
     test: /(agence|bureau).*(risqu|sous.perform|difficult|fragil|faible)|quelles agences|agences (à|a) surveiller/i,
     build: () => ({
       content:
-        `J'ai identifié **${atRisk.length} agences** présentant un niveau de risque supérieur au seuil défini ` +
+        `J'ai identifié ${atRisk.length} agences présentant un niveau de risque supérieur au seuil défini ` +
         `(score de performance < 55/100). Les trois principales :\n\n` +
         worst3
           .map((a, i) => `${i + 1}. ${a.name} (${a.region}) — score ${a.score}/100, croissance ${pct(a.growth)}, marge ${a.profitability} %`)
           .join('\n') +
-        `\n\nLa cause dominante est la **baisse des transactions combinée à une hausse des coûts opérationnels**. ` +
+        `\n\nLa cause dominante est la baisse des transactions combinée à une hausse des coûts opérationnels. ` +
         `Je recommande de prioriser ces agences pour une revue opérationnelle sur site.`,
       blocks: [
         {
@@ -100,9 +100,9 @@ const INTENTS: Intent[] = [
       content:
         `Le volume de colis progresse de ${pct(NATIONAL_KPIS.parcelsDelta)} sur 30 jours. ` +
         `Trois facteurs principaux, d'après le moteur analytique :\n\n` +
-        `• **Concentration géographique** : ${topParcels[0].region} et ${topParcels[1].region} concentrent l'essentiel de la hausse.\n` +
-        `• **Effet e-commerce local** : montée des envois interurbains de petits colis.\n` +
-        `• **Report du courrier** : une partie des flux documentaires bascule vers l'envoi suivi.`,
+        `• Concentration géographique : ${topParcels[0].region} et ${topParcels[1].region} concentrent l'essentiel de la hausse.\n` +
+        `• Effet e-commerce local : montée des envois interurbains de petits colis.\n` +
+        `• Report du courrier : une partie des flux documentaires bascule vers l'envoi suivi.`,
       blocks: [
         {
           type: 'bars',
@@ -138,8 +138,8 @@ const INTENTS: Intent[] = [
       return {
         content:
           `Projection du chiffre d'affaires (modèle simulé, MAPE ${f.mape} %) :\n\n` +
-          `• Horizon 30 jours : **${fcfa(f.h30)}**\n` +
-          `• Horizon 90 jours : **${fcfa(f.h90)}**\n` +
+          `• Horizon 30 jours : ${fcfa(f.h30)}\n` +
+          `• Horizon 90 jours : ${fcfa(f.h90)}\n` +
           `• Intervalle de confiance à 90 % : ${fcfa(f.forecast[2].lo)} – ${fcfa(f.forecast[2].hi)}\n\n` +
           `La trajectoire reste haussière, portée par la saisonnalité de fin d'année et la croissance colis.`,
         blocks: [
@@ -156,7 +156,7 @@ const INTENTS: Intent[] = [
     test: /(action|priorit|recommand|décision|decision|faire|devrait).*(priorit|direction|urgent)|que (faut|recommande|conseille)/i,
     build: () => ({
       content:
-        `D'après l'état actuel des indicateurs, voici les **priorités pour la Direction Générale** :`,
+        `D'après l'état actuel des indicateurs, voici les priorités pour la Direction Générale :`,
       blocks: [
         {
           type: 'list',
