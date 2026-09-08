@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { ROLE_LABELS, useAuth } from '../auth'
 import {
   Bell,
   ChevronRight,
@@ -85,19 +86,37 @@ function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   )
 }
 
+function initialsOf(name: string) {
+  const p = name.trim().split(/\s+/)
+  return ((p[0]?.[0] ?? '') + (p[1]?.[0] ?? p[0]?.[1] ?? '')).toUpperCase()
+}
+
 function SidebarFooter() {
+  const { user, logout } = useAuth()
+  const nav = useNavigate()
   return (
     <div className="border-t border-white/10 p-3 space-y-1">
       <button className="w-full flex items-center gap-3 rounded-lg px-3 py-2 text-[13px] text-white/55 hover:text-white hover:bg-white/[0.06] transition-colors">
         <Settings size={16} /> Paramètres
       </button>
       <div className="flex items-center gap-3 rounded-lg px-3 py-2">
-        <span className="w-8 h-8 rounded-full bg-white/10 grid place-items-center text-white text-[12px] font-semibold">DG</span>
+        <span className="w-8 h-8 rounded-full bg-white/10 grid place-items-center text-white text-[12px] font-semibold">
+          {user ? initialsOf(user.name) : '—'}
+        </span>
         <div className="leading-tight min-w-0 flex-1">
-          <div className="text-[12.5px] text-white font-medium truncate">A. Traoré</div>
-          <div className="text-[10px] text-white/40 truncate">Direction Générale</div>
+          <div className="text-[12.5px] text-white font-medium truncate">{user?.name ?? '—'}</div>
+          <div className="text-[10px] text-white/40 truncate">{user ? ROLE_LABELS[user.role] : ''}</div>
         </div>
-        <LogOut size={14} className="text-white/40" />
+        <button
+          onClick={() => {
+            logout()
+            nav('/login', { replace: true })
+          }}
+          title="Se déconnecter"
+          className="text-white/40 hover:text-white transition-colors"
+        >
+          <LogOut size={15} />
+        </button>
       </div>
     </div>
   )
