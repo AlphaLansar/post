@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-canvas text-ink font-sans antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'ss01';
+  }
+  ::selection {
+    background: rgba(201, 162, 39, 0.24);
+  }
+  /* Scrollbars sobres */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #cfd5de transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: #cfd5de;
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-surface border border-line rounded-card shadow-card;
+  }
+  .card-h {
+    @apply px-5 py-4 border-b border-line flex items-center justify-between;
+  }
+  .stat-label {
+    @apply text-[11px] font-semibold uppercase tracking-[0.08em] text-ink-faint;
+  }
+  .kpi-value {
+    @apply text-[26px] leading-none font-semibold text-navy tabular-nums;
+  }
+  .th {
+    @apply text-[11px] font-semibold uppercase tracking-[0.06em] text-ink-faint text-left px-4 py-3 bg-[#FafBfC] border-b border-line whitespace-nowrap;
+  }
+  .td {
+    @apply px-4 py-3 text-[13px] border-b border-line text-ink align-middle;
+  }
+  .tr-hover {
+    @apply hover:bg-navy-50/60 transition-colors cursor-pointer;
+  }
+  .btn {
+    @apply inline-flex items-center gap-1.5 rounded-md text-[13px] font-medium px-3 py-1.5 transition-colors border;
+  }
+  .btn-primary {
+    @apply btn bg-navy text-white border-navy hover:bg-navy-700;
+  }
+  .btn-ghost {
+    @apply btn bg-transparent border-line text-ink hover:bg-navy-50;
+  }
+  .btn-gold {
+    @apply btn bg-gold text-navy-950 border-gold hover:bg-gold-dark hover:text-white;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full text-[11px] font-semibold px-2.5 py-1 border;
+  }
+  .seg {
+    @apply text-[12px] font-medium px-3 py-1.5 rounded-md transition-colors;
+  }
+  .seg-on {
+    @apply bg-navy text-white;
+  }
+  .seg-off {
+    @apply text-ink-muted hover:bg-navy-50;
+  }
+  .fade-up {
+    animation: fadeUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseDot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+.pulse-dot {
+  animation: pulseDot 1.8s ease-in-out infinite;
+}
